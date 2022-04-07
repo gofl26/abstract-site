@@ -13,7 +13,7 @@ describe('Site 요구사항 테스트', () => {
         const noticeBoard = new Board('공지사항');
 
         mySite.addBoard(noticeBoard);
-
+        
         expect(mySite.findBoardByName('공지사항')).toEqual(noticeBoard);
     });
 
@@ -33,12 +33,12 @@ describe('Site 요구사항 테스트', () => {
         const mySite = new Site();
         const noticeBoard = new Board('공지사항');
         const faqBoard = new Board('FAQ');
-
+        
         expect(() => {
             mySite.addBoard(noticeBoard);
             mySite.addBoard(faqBoard);
         }).not.toThrow();
-
+        
         expect(mySite.boards).toEqual([noticeBoard, faqBoard]);
     });
 });
@@ -71,9 +71,9 @@ describe('Board 요구사항 테스트', () => {
     test('Site 에 추가된 Board만 사용 가능한 것으로 간주하며 사용 불가능한 Board에는 Article을 추가할 수 없다.', () => {
         const addedBoard = new Board('사이트에 추가된 게시판');
         const notAddedBoard = new Board('사이트에 추가되지 않은 게시판');
-
+        
         mySite.addBoard(addedBoard);
-
+        
         expect(() => {
             const article = new Article({
                 subject: '글 제목',
@@ -82,7 +82,7 @@ describe('Board 요구사항 테스트', () => {
             });
             addedBoard.publish(article);
         }).not.toThrow();
-
+        
         expect(() => {
             const article = new Article({
                 subject: '글 제목2',
@@ -103,8 +103,6 @@ describe('Board 요구사항 테스트', () => {
             author: '강승현',
         });
         noticeBoard.publish(article);
-
-        // 규칙은 ${board.name}-${랜덤 값} 를 따른다.
         expect(article.id.startsWith('공지사항-')).toBe(true);
     });
 
@@ -162,7 +160,6 @@ describe('Board 요구사항 테스트', () => {
             author: '강승현',
         });
         noticeBoard.publish(article2);
-
         expect(noticeBoard.getAllArticles()).toEqual([article, article2]);
     });
 });
